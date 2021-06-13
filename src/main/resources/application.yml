@@ -1,0 +1,41 @@
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    persist-authorization: true
+
+
+spring:
+  batch:
+    jdbc:
+      initialize-schema: always
+  application:
+    name: icommerce
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/iCommerce
+    username: todo
+    password: todo
+  servlet:
+    multipart:
+      maxFileSize: 10MB
+      maxRequestSize: 200MB
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+#      javax:
+#        persistence:
+#          schema-generation:
+#            scripts:
+#              action: create
+#              create-source: metadata
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL95Dialect
+        naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        default_schema: icommerce
+        jdbc:
+          lob:
+            non_contextual_creation: true
+          time_zone: UTC
+    show-sql: false
