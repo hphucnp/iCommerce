@@ -32,19 +32,6 @@ public class ProductController {
         return ProductResponse.fromEntity(product);
     }
 
-//        @ApiImplicitParams(value = {
-//            @ApiImplicitParam(name = "page", paramType = "query", dataType = "String"),
-//            @ApiImplicitParam(name = "size", paramType = "query", dataType = "String"),
-//            @ApiImplicitParam(name = "sort", paramType = "query", dataType = "String"),
-//            @ApiImplicitParam(name = "officeCode", paramType = "query", dataType = "String"),
-//            @ApiImplicitParam(name = "voyage", paramType = "query", dataType = "String"),
-//            @ApiImplicitParam(name = "dateOfRegistration", paramType = "query", dataType = "String"),
-//            @ApiImplicitParam(name = "registrationNumber", paramType = "query", dataType = "String"),
-//            @ApiImplicitParam(name = "registrationDate", paramType = "query", dataType = "String"),
-//            @ApiImplicitParam(name = "carrier", paramType = "query", dataType = "String"),
-//            @ApiImplicitParam(name = "writtenOff", paramType = "query", dataType = "String"),
-//            @ApiImplicitParam(name = "status", paramType = "query", dataType = "String")
-//    })
     @GetMapping
     public Page<ProductResponse> get(@PageableDefault Pageable pageable,
                                      HttpServletRequest request) {
