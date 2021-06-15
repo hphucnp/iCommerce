@@ -1,6 +1,7 @@
 package com.phuc.icommerce.business.product.impl;
 
 import com.phuc.icommerce.business.product.ProductService;
+import com.phuc.icommerce.data.entity.product.Color;
 import com.phuc.icommerce.data.entity.product.Product;
 import com.phuc.icommerce.data.entity.product.QProduct;
 import com.phuc.icommerce.data.repository.ProductRepository;
@@ -36,29 +37,50 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<Product> getList(Map<String, String> filters, Pageable pageable) {
+    public Page<Product> getList(Map<String, String[]> filters, Pageable pageable) {
         QProduct qProduct = QProduct.product;
         BooleanExpression expression = Expressions.asBoolean(true).isTrue();
         if(!filters.isEmpty()){
-            for (Map.Entry<String, String> entry : filters.entrySet()) {
+            for (Map.Entry<String, String[]> entry : filters.entrySet()) {
                 String key = entry.getKey();
-                String value = entry.getValue();
-                BooleanExpression condition = null;
+                List<String> values = Arrays.stream(entry.getValue())
+                        .map(String::trim)
+                        .collect(Collectors.toList());
+                List<BooleanExpression> conditions = null;
                 switch (key) {
                     case "brand":
-                        condition = qProduct.brand.name.containsIgnoreCase(value);
+                        conditions = values.stream()
+                                .map(qProduct.brand.name::containsIgnoreCase)
+                                .collect(Collectors.toList());
                         break;
                     case "category":
-                        condition = qProduct.category.name.containsIgnoreCase(value);
+                        conditions = values.stream()
+                                .map(qProduct.category.name::containsIgnoreCase)
+                                .collect(Collectors.toList());
                         break;
                     case "startPrice":
-                        condition = qProduct.price.goe(new BigDecimal(value));
+                        conditions = values.stream()
+                                .map((value) -> qProduct.price.goe(new BigDecimal(value)))
+                                .collect(Collectors.toList());
                         break;
                     case "endPrice":
-                        condition = qProduct.price.loe(new BigDecimal(value));
+                        conditions = values.stream()
+                                .map((value) -> qProduct.price.loe(new BigDecimal(value)))
+                                .collect(Collectors.toList());
+                        break;
+                    case "color":
+                        conditions = values.stream()
+                                .map((value) -> qProduct.color.eq(Color.valueOf(value.toUpperCase())))
+                                .collect(Collectors.toList());
+                        break;
                 }
-                if (condition != null) {
-                    expression = expression.and(condition);
+                if (conditions != null && !conditions.isEmpty()) {
+                    BooleanExpression subExp = conditions.get(0);
+                    for (int i = 1; i < conditions.size(); i++) {
+                        subExp = subExp.or(conditions.get(i));
+                    }
+
+                    expression = expression.and(subExp);
                 }
             }
         }

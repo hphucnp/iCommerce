@@ -11,7 +11,7 @@ import java.util.Map;
 public interface ProductService {
     Product findById(Long id);
 //    Product add(Product product);
-    Page<Product> getList(Map<String, String> filters, Pageable pageable);
+    Page<Product> getList(Map<String, String[]> filters, Pageable pageable);
 //    Product update(Product product);
 }
 

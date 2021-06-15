@@ -16,6 +16,7 @@ public class OrderProduct {
     @Embeddable
     @Setter
     @Getter
+    static
     class OrderProductKey implements Serializable {
 
         @Column(name = "order_id")

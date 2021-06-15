@@ -13,27 +13,16 @@ import java.io.Serializable;
 @Data
 @Entity
 public class CartProduct {
-    @Embeddable
-    @Setter
-    @Getter
-    class CartProductKey implements Serializable {
-
-        @Column(name = "cart_id")
-        Long cartId;
-
-        @Column(name = "product_id")
-        Long productId;
-    }
 
     @EmbeddedId
     CartProductKey id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @MapsId("cartId")
     @JoinColumn(name = "cart_id")
     Cart cart;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @MapsId("productId")
     @JoinColumn(name = "product_id")
     Product product;

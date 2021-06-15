@@ -4,14 +4,22 @@ import com.phuc.icommerce.data.entity.composite.CartProduct;
 import com.phuc.icommerce.data.entity.composite.OrderProduct;
 import com.phuc.icommerce.data.entity.order.Order;
 import com.phuc.icommerce.data.entity.user.Cart;
-import lombok.Data;
+import lombok.*;
+import org.apache.commons.lang3.builder.HashCodeExclude;
+import org.apache.commons.lang3.builder.ToStringExclude;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
 public class Product {
     @Id
@@ -32,19 +40,29 @@ public class Product {
     private Brand brand;
 
 
-    @JoinColumn
-    @ManyToOne
-    private Order order;
-
-    @JoinColumn
-    @ManyToOne
-    private Cart cart;
-
     private Color color;
 
     @OneToMany(mappedBy = "product")
-    Set<CartProduct> cartProducts;
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    Set<CartProduct> cartProducts = new HashSet<>();
 
     @OneToMany(mappedBy = "product")
-    Set<OrderProduct> orderProducts;
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    Set<OrderProduct> orderProducts = new HashSet<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Product product = (Product) o;
+
+        return Objects.equals(id, product.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 2042274511;
+    }
 }

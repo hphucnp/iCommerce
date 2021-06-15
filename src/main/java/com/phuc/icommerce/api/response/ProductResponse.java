@@ -20,7 +20,7 @@ public class ProductResponse {
         productResponse.setName(product.getName());
         productResponse.setBrand(product.getBrand().getId());
         productResponse.setCategory(product.getCategory().getId());
-        productResponse.setColor(product.getColor().toString());
+        productResponse.setColor(product.getColor()!=null?product.getColor().toString():null);
         return productResponse;
     }
 }
