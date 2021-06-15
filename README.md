@@ -1,5 +1,5 @@
 # I-COMMERCE Quick Start
-ERD: ![icommerce ERD diagram](icommerceERD.png "icommerce ERD diagram")
+ERD: ![icommerce ERD diagram](https://github.com/hphucnp/iCommerce/blob/main/iCommerceERD.png?raw=true "icommerce ERD diagram")
 ### Explanation
  To whom it may concern, the development here is about microservice architecture where it is small service with minimum 
  dependencies and simple configuration. I follow SOLID principles to some extent, especially Interface Segregation. 
