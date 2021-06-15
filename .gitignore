@@ -31,3 +31,11 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Maven ###
+.mvn
+mvnw.cmd
+mvnw
+
+### Others ###
+.jpb
