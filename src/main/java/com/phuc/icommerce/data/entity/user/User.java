@@ -1,6 +1,9 @@
 package com.phuc.icommerce.data.entity.user;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.apache.commons.lang3.builder.HashCodeExclude;
 import org.hibernate.Hibernate;
 

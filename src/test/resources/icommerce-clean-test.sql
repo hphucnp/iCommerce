@@ -1,0 +1,5 @@
+-- TRUNCATE TABLE cart;
+-- TRUNCATE TABLE user;
+-- TRUNCATE TABLE category;
+-- TRUNCATE TABLE orders;
+-- TRUNCATE TABLE brand;

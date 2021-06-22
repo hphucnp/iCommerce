@@ -2,11 +2,7 @@ package com.phuc.icommerce.data.entity.product;
 
 import com.phuc.icommerce.data.entity.composite.CartProduct;
 import com.phuc.icommerce.data.entity.composite.OrderProduct;
-import com.phuc.icommerce.data.entity.order.Order;
-import com.phuc.icommerce.data.entity.user.Cart;
 import lombok.*;
-import org.apache.commons.lang3.builder.HashCodeExclude;
-import org.apache.commons.lang3.builder.ToStringExclude;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;

@@ -1,7 +1,6 @@
 package com.phuc.icommerce.api.response;
 
 import com.phuc.icommerce.data.entity.composite.CartProduct;
-import com.phuc.icommerce.data.entity.product.Product;
 import com.phuc.icommerce.data.entity.user.Cart;
 import lombok.Getter;
 import lombok.Setter;

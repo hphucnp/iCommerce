@@ -4,4 +4,5 @@ import com.phuc.icommerce.data.entity.user.Cart;
 
 public interface CartService {
     Cart addProduct(Long cartId, Long productId) throws Exception;
+    Cart get(Long cartId) throws Exception;
 }
