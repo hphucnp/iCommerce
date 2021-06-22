@@ -34,7 +34,7 @@ Design patterns: (based on Spring Boot) Singletons (one bean at a time within Sp
     - `mvn clean install`
   * Step 3: [Run] the project
     - `mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=\<your preferred port\>`
-  * Step 4: [Test][Manual] Go to http://localhost:8080/swagger-ui.html to try the APIs out 
+  
 
 
 ### Steps to run the application (with docker and docker-compose) on a local computer:
@@ -52,7 +52,12 @@ Design patterns: (based on Spring Boot) Singletons (one bean at a time within Sp
     - `docker cp icommerce.sql db:/var/lib/postgresql/data/`
     - `docker-compose exec db bash -c "su - postgres -c 'psql -U icommerce < data/icommerce.sql'"`  
 * Step 4: [Test][Manual] Go to http://localhost:8080/swagger-ui.html to try the APIs out
+
+### Testing
+  Unit tests are created using Junit5, SpringBootTest and H2 database. They are self-contained and will be run as is.
     
+    - `mvn test`
+  [Manual] Go to http://localhost:8080/swagger-ui.html to try the APIs out. Search API is not tested manually by Swagger (lack of parameters input). But you can try with postman or cURL ( below)
 ### Curls
   * Get all products with brand `Pepsi`: 
     - `curl --location --request GET 'http://localhost:7000/product?brand=Pepsi'`
