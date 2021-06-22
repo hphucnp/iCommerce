@@ -15,11 +15,14 @@ import com.phuc.icommerce.data.repository.ProductRepository;
 import com.phuc.icommerce.data.repository.UserRepository;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,31 +42,24 @@ class CartServiceTest {
     ProductService productService;
     @Autowired
     CartService cartService;
-    @Resource
+    @Autowired
     CartRepository cartRepository;
-    @Resource
+    @Autowired
     ProductRepository productRepository;
-    @Resource
+    @Autowired
     CartProductRepository cartProductRepository;
-    @Resource
+    @Autowired
     UserRepository userRepository;
 
 
 
     @SneakyThrows
+    @Sql(scripts = {"classpath:icommerce-schema-test.sql", "classpath:icommerce-data-test.sql"},
+            config = @SqlConfig(encoding = "utf-8"),
+            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     @Test
     void addition() {
-        Product product = new Product();
-        Long productId = productRepository.save(product).getId();
-        assertEquals(1L, productId);
-        User user = new User();
-        user = userRepository.save(user);
-        Long userId = user.getId();
-        assertEquals(1L, userId);
-        Cart cart = new Cart();
-        cart.setUser(user);
-        Long cartId = cartRepository.save(cart).getId();
-        assertEquals(1L, cartId);
+        Long cartId=1L, productId=1L;
         cartService.addProduct(productId, cartId);
         assertEquals(1L, cartProductRepository.getById(new CartProductKey(cartId, productId)).getQuantity());
         cartService.addProduct(productId, cartId);

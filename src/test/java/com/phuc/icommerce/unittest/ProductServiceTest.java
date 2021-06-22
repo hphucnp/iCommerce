@@ -40,7 +40,7 @@ public class ProductServiceTest {
     @Autowired
     ProductService productService;
 
-    @Resource
+    @Autowired
     ProductRepository productRepository;;
 
     @Test
@@ -59,6 +59,9 @@ public class ProductServiceTest {
         assertEquals("Pepsi Light", productService.findById(1L).getName());
     }
 
+    @Sql(scripts = {"classpath:icommerce-schema-test.sql", "classpath:icommerce-data-test.sql"},
+            config = @SqlConfig(encoding = "utf-8", transactionMode = SqlConfig.TransactionMode.ISOLATED),
+            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     @Test
     void testSearchingByBrand() {
         Map<String, String[]> filter = new HashMap<>() {{
@@ -70,6 +73,9 @@ public class ProductServiceTest {
         assertTrue(products.map(product -> product.getBrand().getName()).stream().allMatch((value) -> value.contains("Pepsi")));
     }
 
+    @Sql(scripts = {"classpath:icommerce-schema-test.sql", "classpath:icommerce-data-test.sql"},
+            config = @SqlConfig(encoding = "utf-8", transactionMode = SqlConfig.TransactionMode.ISOLATED),
+            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     @Test
     void testSearchingByCategory() {
         Map<String, String[]> filter = new HashMap<>() {{
@@ -81,6 +87,9 @@ public class ProductServiceTest {
         assertTrue(products.map(product -> product.getCategory().getName()).stream().allMatch((value) -> value.contains("beverage")));
     }
 
+    @Sql(scripts = {"classpath:icommerce-schema-test.sql", "classpath:icommerce-data-test.sql"},
+            config = @SqlConfig(encoding = "utf-8", transactionMode = SqlConfig.TransactionMode.ISOLATED),
+            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     @Test
     void testSearchingByStartPrice() {
         Map<String, String[]> filter = new HashMap<>() {{
@@ -92,6 +101,9 @@ public class ProductServiceTest {
         assertTrue(products.map(Product::getPrice).stream().allMatch((value) -> value.compareTo(new BigDecimal("1000000")) > 0));
     }
 
+    @Sql(scripts = {"classpath:icommerce-schema-test.sql", "classpath:icommerce-data-test.sql"},
+            config = @SqlConfig(encoding = "utf-8", transactionMode = SqlConfig.TransactionMode.ISOLATED),
+            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     @Test
     void testSearchingByColor() {
         Map<String, String[]> filter = new HashMap<>() {{

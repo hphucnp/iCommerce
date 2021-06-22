@@ -26,7 +26,7 @@ public class CartServiceImpl implements CartService {
     @Transactional
     public Cart addProduct(Long cartId, Long productId) throws Exception {
         try {
-            Cart cart = this.get(cartId);
+            Cart cart = get(cartId);
             Product product = productService.findById(productId);
             CartProductKey key = new CartProductKey(cartId, productId);
             Optional<CartProduct> optionalCartProduct = this.cartProductRepository.findById(key);
@@ -51,7 +51,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Cart get(Long cartId) throws Exception {
-            Cart cart = this.cartRepository.findById(cartId).orElse(null);
+            Cart cart = cartRepository.findById(cartId).orElse(null);
             if (cart == null) throw new Exception("Cannot find the cart id " + cartId);
             return cart;
     }
