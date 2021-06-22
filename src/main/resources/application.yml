@@ -24,12 +24,6 @@ spring:
     hibernate:
       ddl-auto: update
     properties:
-#      javax:
-#        persistence:
-#          schema-generation:
-#            scripts:
-#              action: create
-#              create-source: metadata
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQL95Dialect
         naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy

@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+  db:
+    container_name: db
+    build:
+      context: ./
+      dockerfile: postgres.Dockerfile
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: 'icommerce'
+      POSTGRES_USER: 'icommerce'
+      POSTGRES_PASSWORD: 'icommerce'
+      PGPASSWORD: 'icommerce'
+    image: db:latest
+    volumes:
+      - ~/icommerce/data:/var/lib/postgresql/data
+
+  icommerce:
+    ports:
+      - "8000:8080"
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: icommerce:latest
+    container_name: icommerce
